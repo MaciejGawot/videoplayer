@@ -10,6 +10,9 @@ public:
 	~CVideoPlayer();
 
 	void loadMedia(CMediaObject&);
+	bool isPlaying();
+	void play();
+	void stop();
 
 	CMediaObject createMediaObject(std::string);
 

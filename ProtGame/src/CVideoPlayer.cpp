@@ -39,13 +39,21 @@ CVideoPlayer::CVideoPlayer(CEngine& engine)
 	{
 		std::cout << "LibVLC initialization failure." << std::endl;
 	}
+
+	mMediaPlayer = libvlc_media_player_new(mLibVLCInstance);
+
+	if (NULL == mMediaPlayer)
+	{
+		std::cout << "Media player could not be created" << std::endl;
+	}
+	libvlc_video_set_callbacks(mMediaPlayer, &CVideoPlayer::lock, &CVideoPlayer::unlock, &CVideoPlayer::display, &mContext);
+	libvlc_video_set_format(mMediaPlayer, "RV16", mContext.videoWidth, mContext.videoHeight, mContext.videoWidth * 2);
 }
 
 
 CVideoPlayer::~CVideoPlayer()
 {
-	// Stop stream and clean up libVLC.
-	libvlc_media_player_stop(mMediaPlayer);
+	// Clean up libVLC.
 	libvlc_media_player_release(mMediaPlayer);
 	libvlc_release(mLibVLCInstance);
 
@@ -56,14 +64,23 @@ CVideoPlayer::~CVideoPlayer()
 
 void CVideoPlayer::loadMedia(CMediaObject& media)
 {
-	mMediaPlayer = libvlc_media_player_new_from_media(media());
+	libvlc_media_player_set_media(mMediaPlayer, media());
 	libvlc_media_release(media());
+}
 
-	libvlc_video_set_callbacks(mMediaPlayer, &CVideoPlayer::lock, &CVideoPlayer::unlock,  &CVideoPlayer::display, &mContext);
-	libvlc_video_set_format(mMediaPlayer, "RV16", mContext.videoWidth, mContext.videoHeight, mContext.videoWidth*2);
+bool CVideoPlayer::isPlaying()
+{
+	return libvlc_media_player_is_playing(mMediaPlayer);
+}
 
-	//TODO move to dedicated method
+void CVideoPlayer::play()
+{
 	libvlc_media_player_play(mMediaPlayer);
+}
+
+void CVideoPlayer::stop()
+{
+	libvlc_media_player_stop(mMediaPlayer);
 }
 
 CMediaObject CVideoPlayer::createMediaObject(std::string path)
