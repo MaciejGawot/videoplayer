@@ -149,5 +149,16 @@ void CVideoPlayer::callbacks(const libvlc_event_t* event, void* data)
 	case libvlc_MediaPlayerEndReached:
 		printf("Media ended");
 		break;
+
+		//Just in case ;)
+		//libvlc_MediaPlayerMediaChanged
+		//libvlc_MediaPlayerNothingSpecial
+		//libvlc_MediaPlayerOpening
+		//libvlc_MediaPlayerBuffering
+		//libvlc_MediaPlayerPlaying
+		//libvlc_MediaPlayerPaused
+		//libvlc_MediaPlayerStopped
+		//libvlc_MediaPlayerForward
+		//libvlc_MediaPlayerBackward
 	}
 }
