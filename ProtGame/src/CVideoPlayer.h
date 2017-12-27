@@ -13,6 +13,7 @@ public:
 	bool isPlaying();
 	void play();
 	void stop();
+	void pause();
 
 	CMediaObject createMediaObject(std::string);
 

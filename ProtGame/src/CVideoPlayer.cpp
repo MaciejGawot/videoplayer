@@ -83,6 +83,11 @@ void CVideoPlayer::stop()
 	libvlc_media_player_stop(mMediaPlayer);
 }
 
+void CVideoPlayer::pause()
+{
+	libvlc_media_player_pause(mMediaPlayer);
+}
+
 CMediaObject CVideoPlayer::createMediaObject(std::string path)
 {
 	return CMediaObject(path, mLibVLCInstance);
