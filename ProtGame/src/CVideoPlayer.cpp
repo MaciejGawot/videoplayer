@@ -48,6 +48,9 @@ CVideoPlayer::CVideoPlayer(CEngine& engine)
 	}
 	libvlc_video_set_callbacks(mMediaPlayer, &CVideoPlayer::lock, &CVideoPlayer::unlock, &CVideoPlayer::display, &mContext);
 	libvlc_video_set_format(mMediaPlayer, "RV16", mContext.videoWidth, mContext.videoHeight, mContext.videoWidth * 2);
+
+	mEventManager = libvlc_media_player_event_manager(mMediaPlayer);
+	registerEvents();
 }
 
 
@@ -132,4 +135,19 @@ void CVideoPlayer::display(void *data, void *id)
 	SDL_RenderClear(c->renderer);
 	SDL_RenderCopy(c->renderer, c->texture, NULL, &rect);
 	SDL_RenderPresent(c->renderer);
+}
+
+void CVideoPlayer::registerEvents()
+{
+	libvlc_event_attach(mEventManager, libvlc_MediaPlayerEndReached, callbacks, nullptr);
+}
+
+void CVideoPlayer::callbacks(const libvlc_event_t* event, void* data)
+{
+	switch (event->type)
+	{
+	case libvlc_MediaPlayerEndReached:
+		printf("Media ended");
+		break;
+	}
 }

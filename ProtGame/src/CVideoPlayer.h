@@ -32,8 +32,12 @@ private:
 	static void unlock(void *data, void *id, void *const *p_pixels);
 	static void display(void *data, void *id);
 	
+	void registerEvents();
+	static void callbacks(const libvlc_event_t* event, void* data);
+
 	//libvlc dependencies 
 	libvlc_instance_t *mLibVLCInstance;
 	libvlc_media_player_t *mMediaPlayer;
+	libvlc_event_manager_t *mEventManager;
 };
 
