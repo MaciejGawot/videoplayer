@@ -16,7 +16,8 @@ CVideoPlayer::CVideoPlayer(CEngine& engine)
 
 	if (NULL == mContext.texture) 
 	{
-		std::cout << "Texture could not be creeated: " << SDL_GetError() << std::endl;;
+		std::cout << "Texture could not be creeated: " << SDL_GetError() << std::endl;
+		throw std::exception("Error on SDL_CreateTexture.");
 	}
 
 	mContext.mutex = SDL_CreateMutex();
@@ -38,6 +39,7 @@ CVideoPlayer::CVideoPlayer(CEngine& engine)
 	if (NULL == mLibVLCInstance)
 	{
 		std::cout << "LibVLC initialization failure." << std::endl;
+		throw std::exception("Error on libvlc_new.");
 	}
 
 	mMediaPlayer = libvlc_media_player_new(mLibVLCInstance);
@@ -45,6 +47,7 @@ CVideoPlayer::CVideoPlayer(CEngine& engine)
 	if (NULL == mMediaPlayer)
 	{
 		std::cout << "Media player could not be created" << std::endl;
+		throw std::exception("Error on libvlc_media_player_new.");
 	}
 	libvlc_video_set_callbacks(mMediaPlayer, &CVideoPlayer::lock, &CVideoPlayer::unlock, &CVideoPlayer::display, &mContext);
 	libvlc_video_set_format(mMediaPlayer, "RV16", mContext.videoWidth, mContext.videoHeight, mContext.videoWidth * 2);
@@ -78,7 +81,10 @@ bool CVideoPlayer::isPlaying()
 
 void CVideoPlayer::play()
 {
-	libvlc_media_player_play(mMediaPlayer);
+	if (0 != libvlc_media_player_play(mMediaPlayer))
+	{
+		throw std::exception("Error on libvlc_media_player_play.");
+	}
 }
 
 void CVideoPlayer::stop()
@@ -139,7 +145,10 @@ void CVideoPlayer::display(void *data, void *id)
 
 void CVideoPlayer::registerEvents()
 {
-	libvlc_event_attach(mEventManager, libvlc_MediaPlayerEndReached, callbacks, nullptr);
+	if (0 != libvlc_event_attach(mEventManager, libvlc_MediaPlayerEndReached, callbacks, nullptr))
+	{
+		throw std::exception("Error on libvlc_event_attach.");
+	}
 }
 
 void CVideoPlayer::callbacks(const libvlc_event_t* event, void* data)
