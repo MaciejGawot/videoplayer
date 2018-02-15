@@ -1,12 +1,12 @@
 #pragma once
 #include "../stdafx.h"
-#include "CEngine.h"
+#include "CVideoEngine.h"
 #include "CMediaObject.h"
 
 class CVideoPlayer
 {
 public:
-	CVideoPlayer(CEngine&);
+	CVideoPlayer(CVideoEngine&);
 	~CVideoPlayer();
 
 	void loadMedia(CMediaObject&);

@@ -2,11 +2,11 @@
 
 #include "../stdafx.h"
 
-class CEngine
+class CVideoEngine
 {
 public:
-	CEngine();
-	~CEngine();
+	CVideoEngine();
+	~CVideoEngine();
 
 protected:
 	int mScreenWidth;

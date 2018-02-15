@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "CEngine.h"
+#include "CVideoEngine.h"
 
 
-CEngine::CEngine() : mScreenWidth(800), mScreenHeight(600)
+CVideoEngine::CVideoEngine() : mScreenWidth(800), mScreenHeight(600)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -27,7 +27,7 @@ CEngine::CEngine() : mScreenWidth(800), mScreenHeight(600)
 }
 
 
-CEngine::~CEngine()
+CVideoEngine::~CVideoEngine()
 {
 	//Destroy window
 	SDL_DestroyWindow(mWindow);

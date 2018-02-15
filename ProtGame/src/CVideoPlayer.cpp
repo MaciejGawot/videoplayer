@@ -2,7 +2,7 @@
 #include "CVideoPlayer.h"
 
 
-CVideoPlayer::CVideoPlayer(CEngine& engine)
+CVideoPlayer::CVideoPlayer(CVideoEngine& engine)
 {
 	mContext.videoWidth = engine.getScreenWidth();
 	mContext.videoHeight = engine.getScreenHeight();
