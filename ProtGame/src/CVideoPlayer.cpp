@@ -2,12 +2,12 @@
 #include "CVideoPlayer.h"
 
 
-CVideoPlayer::CVideoPlayer(CVideoEngine& engine)
+CVideoPlayer::CVideoPlayer(std::shared_ptr<CVideoEngine> engine)
 {
-	mContext.videoWidth = engine.getScreenWidth();
-	mContext.videoHeight = engine.getScreenHeight();
+	mContext.videoWidth = engine->getScreenWidth();
+	mContext.videoHeight = engine->getScreenHeight();
 
-	mContext.renderer = engine.getRenderer();
+	mContext.renderer = engine->getRenderer();
 
 	mContext.texture = SDL_CreateTexture(
 		mContext.renderer,

@@ -6,7 +6,7 @@
 class CVideoPlayer
 {
 public:
-	CVideoPlayer(CVideoEngine&);
+	CVideoPlayer(std::shared_ptr<CVideoEngine>);
 	~CVideoPlayer();
 
 	void loadMedia(CMediaObject&);
