@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "CGameEngine.h"
-
+#include "CLocationParser.h"
 
 CGameEngine::CGameEngine() : mVideoEngine(new CVideoEngine), mVideoPlayer(new CVideoPlayer(mVideoEngine))
 {
 	mVideoPlayer->loadMedia(mVideoPlayer->createMediaObject("Wildlife.wmv"));
 	mVideoPlayer->play();
+	CLocationParser::loadLocations("locations.xml");
 }
 
 

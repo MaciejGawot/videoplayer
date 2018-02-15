@@ -1,0 +1,9 @@
+
+<locations>
+	<location name="Name">
+		<file>Test.wmv</file>
+	</location>
+	<location name="Name2">
+		<file>Test2.wmv</file>
+	</location>
+</locations>
